@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/core/router/app_router.dart';
+import 'package:spotify/core/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,21 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home:  MyHomePage(),
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+       theme: AppThemeManager.lightTheme,
+      darkTheme:AppThemeManager.darkTheme,
+      routerConfig: AppRoute.router,
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
