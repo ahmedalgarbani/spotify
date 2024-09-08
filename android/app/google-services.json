@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "961779147097",
+    "firebase_url": "https://spotify-e0c82-default-rtdb.firebaseio.com",
+    "project_id": "spotify-e0c82",
+    "storage_bucket": "spotify-e0c82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961779147097:android:41b93e68acec365a7eec48",
+        "android_client_info": {
+          "package_name": "com.example.spotify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS5GJG31bsCetGKGX9OFEJkg3mDHeFge0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
