@@ -6,9 +6,16 @@ import 'package:spotify/core/theme/app_color.dart';
 import 'package:spotify/core/vectors/app_vector.dart';
 import 'package:spotify/core/widgets/appbar.dart';
 import 'package:spotify/core/widgets/base_button.dart';
+import 'package:spotify/features/authentiaction/data/model/create_user_request.dart';
+import 'package:spotify/features/authentiaction/data/services/service_locator.dart';
+import 'package:spotify/features/authentiaction/presentation/usecase/auth/register.dart';
 
 class Register extends StatelessWidget {
-  const Register({super.key});
+  Register({super.key});
+
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,20 +48,35 @@ class Register extends StatelessWidget {
                       style: TextStyle(color: AppColors.primary),
                     ))
               ]),
-              _inputField(context, hint: "Full Name"),
+              _inputField(context, hint: "Full Name", ParamController: _name),
               SizedBox(
                 height: 20,
               ),
-              _inputField(context, hint: "Enter email"),
+              _inputField(context,
+                  hint: "Enter email", ParamController: _email),
               SizedBox(
                 height: 20,
               ),
-              _inputField(context, hint: "Password"),
+              _inputField(context,
+                  hint: "Password", ParamController: _password),
               SizedBox(
                 height: 20,
               ),
               BasicAppButton(
-                onPressed: () {},
+                onPressed: () async {
+                  var result = await sl<RegisterUseCase>().call(
+                      params: CreateUserRequest(
+                    email: _email.text,
+                    name: _name.text,
+                    password: _password.text,
+                  ));
+                  result.fold((l) {
+                    var Snackbar = SnackBar(content: Text(l));
+                    ScaffoldMessenger.of(context).showSnackBar(Snackbar);
+                  }, (r) {
+                    GoRouter.of(context).pushReplacement(AppRoute.KRoot);
+                  });
+                },
                 title: "creat account",
                 height: 80,
               ),
@@ -74,8 +96,10 @@ class Register extends StatelessWidget {
     );
   }
 
-  Widget _inputField(BuildContext context, {String? hint}) {
+  Widget _inputField(BuildContext context,
+      {String? hint, TextEditingController? ParamController}) {
     return TextField(
+      controller: ParamController,
       decoration: InputDecoration(
         hintText: hint,
       ).applyDefaults(Theme.of(context).inputDecorationTheme),

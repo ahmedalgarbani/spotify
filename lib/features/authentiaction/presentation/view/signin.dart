@@ -6,10 +6,15 @@ import 'package:spotify/core/theme/app_color.dart';
 import 'package:spotify/core/vectors/app_vector.dart';
 import 'package:spotify/core/widgets/appbar.dart';
 import 'package:spotify/core/widgets/base_button.dart';
+import 'package:spotify/features/authentiaction/data/model/signin_user_request.dart';
+import 'package:spotify/features/authentiaction/data/services/service_locator.dart';
+import 'package:spotify/features/authentiaction/presentation/usecase/auth/signin.dart';
+import 'package:spotify/features/authentiaction/presentation/view_model/repository/repo_auth.dart';
 
 class Signin extends StatelessWidget {
-  const Signin({super.key});
-
+  Signin({super.key});
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +36,11 @@ class Signin extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            _inputField(context, hint: "email"),
+            _inputField(context, hint: "email", sendedController: _email),
             SizedBox(
               height: 20,
             ),
-            _inputField(context, hint: "password"),
+            _inputField(context, hint: "password", sendedController: _password),
             SizedBox(
               height: 20,
             ),
@@ -53,7 +58,19 @@ class Signin extends StatelessWidget {
               height: 20,
             ),
             BasicAppButton(
-              onPressed: () {},
+              onPressed: () async {
+                var result = await sl<SignInUSeCase>().call(
+                    params: SigninUserRequest(
+                  email: _email.text,
+                  password: _password.text,
+                ));
+                result.fold((l) {
+                  var Snackbar = SnackBar(content: Text(l));
+                  ScaffoldMessenger.of(context).showSnackBar(Snackbar);
+                }, (r) {
+                  GoRouter.of(context).pushReplacement(AppRoute.KRoot);
+                });
+              },
               title: "Sign In",
               height: 80,
             )
@@ -74,8 +91,10 @@ class Signin extends StatelessWidget {
     );
   }
 
-  Widget _inputField(BuildContext context, {String? hint}) {
+  Widget _inputField(BuildContext context,
+      {String? hint, TextEditingController? sendedController}) {
     return TextField(
+      controller: sendedController,
       decoration: InputDecoration(
         hintText: hint,
       ).applyDefaults(Theme.of(context).inputDecorationTheme),

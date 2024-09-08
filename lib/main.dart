@@ -6,6 +6,7 @@ import 'package:spotify/core/router/app_router.dart';
 import 'package:spotify/core/theme/app_theme.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify/features/authentiaction/data/services/service_locator.dart';
 import 'package:spotify/features/start_page/presentation/view_model/bloc/theme_cubit.dart';
 import 'package:spotify/firebase_options.dart';
 
@@ -17,8 +18,9 @@ Future<void> main() async {
         : await getApplicationDocumentsDirectory(),
   );
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
- );
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await init();
   runApp(const MyApp());
 }
 
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         ],
         child: BlocBuilder<ThemeCubit, ThemeMode>(
           builder: (context, mode) {
-           return MaterialApp.router(
+            return MaterialApp.router(
               debugShowCheckedModeBanner: false,
               theme: AppThemeManager.lightTheme,
               darkTheme: AppThemeManager.darkTheme,

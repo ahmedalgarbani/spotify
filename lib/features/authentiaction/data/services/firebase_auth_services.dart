@@ -1,26 +1,70 @@
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:spotify/features/authentiaction/data/model/create_user_request.dart';
+import 'package:spotify/features/authentiaction/data/model/signin_user_request.dart';
 
 abstract class FirebaseAuthServices {
-  Future<void> signin();
-  Future<void> register(CreateUserRequest createUserRequest);
+  Future<Either> signin(SigninUserRequest signInUserRequest);
+  Future<Either> register(CreateUserRequest createUserRequest);
 }
 
 class FirebaseAuthServicesImpl extends FirebaseAuthServices {
   @override
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> register(CreateUserRequest createUserRequest) async {
+  Future<Either> register(CreateUserRequest createUserRequest) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: createUserRequest.email, password: createUserRequest.password);
-    } on FirebaseAuthException catch (e) {}
+      return Right('Signin was successful');
+    } on FirebaseAuthException catch (e) {
+      String message = '';
+      if (e.code == 'weak-password') {
+        message = 'The password provided is too weak.';
+      } else if (e.code == 'invalid-email') {
+        message = 'The email address is badly formatted.';
+      } else if (e.code == 'operation-not-allowed') {
+        message = 'Password sign-in is disabled for this project.';
+      } else if (e.code == 'user-disabled') {
+        message = 'The user account has been disabled.';
+      } else if (e.code == 'user-not-found') {
+        message =
+            'There is no user corresponding to this identifier. The user may have been deleted.';
+      } else if (e.code == 'wrong-password') {
+        message =
+            'The password is invalid or the user does not have a password.';
+      } else {
+        message = e.message.toString();
+      }
+      return Left(message);
+    }
   }
 
   @override
-  Future<void> signin() async {
-    // TODO: implement signin
-    throw UnimplementedError();
+  Future<Either> signin(SigninUserRequest signInUserRequest) async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+          email: signInUserRequest.email, password: signInUserRequest.password);
+      return Right('Signup was successful');
+    } on FirebaseAuthException catch (e) {
+      String message = '';
+      if (e.code == 'wrong-password') {
+        message = 'The password is invalid.';
+      } else if (e.code == 'invalid-email') {
+        message = 'The email address is badly formatted.';
+      } else if (e.code == 'user-not-found') {
+        message = 'No user found for that email.';
+      } else if (e.code == 'user-disabled') {
+        message = 'This user account has been disabled.';
+      } else if (e.code == 'too-many-requests') {
+        message = 'Too many attempts. Try again later.';
+      } else if (e.code == 'operation-not-allowed') {
+        message = 'Email and password login is not enabled.';
+      } else {
+        message = e.message.toString();
+      }
+      return Left(message);
+    }
   }
 }
