@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -15,9 +16,17 @@ class FirebaseAuthServicesImpl extends FirebaseAuthServices {
 
   Future<Either> register(CreateUserRequest createUserRequest) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      var data = await _auth.createUserWithEmailAndPassword(
           email: createUserRequest.email, password: createUserRequest.password);
-      return Right('Signin was successful');
+
+      FirebaseFirestore.instance.collection('users').add(
+        {
+          'name':createUserRequest.name,
+          'email':data.user!.email,
+        }
+      );
+
+      return const Right('Signin was successful');
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'weak-password') {

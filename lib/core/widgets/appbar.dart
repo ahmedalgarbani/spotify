@@ -5,7 +5,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
   final Widget? action;
   final Color? backgroundColor;
-  final bool hideBack;
+  final bool hideBack ;
   const BaseAppBar(
       {this.title,
       this.hideBack = false,
@@ -19,6 +19,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor ?? Colors.transparent,
       centerTitle: true,
       title: title ?? const Text(''),
+        automaticallyImplyLeading: hideBack?false:true,
       actions: [action ?? Container()],
       leading: hideBack
           ? null
