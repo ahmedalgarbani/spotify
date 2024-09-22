@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:spotify/features/authentiaction/data/services/service_locator.dart';
-import 'package:spotify/features/home/presentation/usecase/song/get_news_song.dart';
-import 'package:spotify/features/home/presentation/view_model/entities/song/song.dart';
+import '../../../../authentiaction/data/services/service_locator.dart';
+import '../../usecase/song/get_news_song.dart';
+import '../../view_model/entities/song/song.dart';
 
 part 'newssongs_state.dart';
 

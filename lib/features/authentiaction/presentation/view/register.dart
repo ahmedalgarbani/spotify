@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spotify/core/router/app_router.dart';
-import 'package:spotify/core/theme/app_color.dart';
-import 'package:spotify/core/vectors/app_vector.dart';
-import 'package:spotify/core/widgets/appbar.dart';
-import 'package:spotify/core/widgets/base_button.dart';
-import 'package:spotify/features/authentiaction/data/model/create_user_request.dart';
-import 'package:spotify/features/authentiaction/data/services/service_locator.dart';
-import 'package:spotify/features/authentiaction/presentation/usecase/auth/register.dart';
+import '../../../../core/router/app_router.dart';
+import '../../../../core/theme/app_color.dart';
+import '../../../../core/vectors/app_vector.dart';
+import '../../../../core/widgets/appbar.dart';
+import '../../../../core/widgets/base_button.dart';
+import '../../data/model/create_user_request.dart';
+import '../../data/services/service_locator.dart';
+import '../usecase/auth/register.dart';
 
 class Register extends StatelessWidget {
   Register({super.key});

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:spotify/features/home/domain/source/song/get_play_list.dart';
+import 'package:spotify/features/pages/usecase/addorremoveusecase.dart';
+import 'package:spotify/features/pages/usecase/isfavorite.dart';
 import 'firebase_auth_services.dart';
 import '../../presentation/usecase/auth/register.dart';
 import '../../presentation/usecase/auth/signin.dart';
@@ -25,5 +26,6 @@ Future<void> init() async {
   sl.registerSingleton<SignInUSeCase>(SignInUSeCase());
   sl.registerSingleton<GetNewsSong>(GetNewsSong());
 
-  sl.registerSingleton<GetPlayListUseCase>(GetPlayListUseCase());
+  sl.registerSingleton<AddOrRemoveUseCase>(AddOrRemoveUseCase());
+  sl.registerSingleton<IsFavoriteUseCase>(IsFavoriteUseCase());
 }

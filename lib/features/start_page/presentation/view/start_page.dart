@@ -2,9 +2,9 @@ import 'dart:ffi' hide Size;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spotify/core/router/app_router.dart';
-import 'package:spotify/core/theme/app_color.dart';
-import 'package:spotify/core/vectors/app_vector.dart';
+import '../../../../core/router/app_router.dart';
+import '../../../../core/theme/app_color.dart';
+import '../../../../core/vectors/app_vector.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});

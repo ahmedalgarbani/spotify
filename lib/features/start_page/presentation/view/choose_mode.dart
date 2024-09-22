@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spotify/core/router/app_router.dart';
-import 'package:spotify/core/theme/app_color.dart';
-import 'package:spotify/core/theme/app_theme.dart';
-import 'package:spotify/core/vectors/app_vector.dart';
-import 'package:spotify/features/start_page/presentation/view/start_page.dart';
-import 'package:spotify/features/start_page/presentation/view_model/bloc/theme_cubit.dart';
+import '../../../../core/router/app_router.dart';
+import '../../../../core/theme/app_color.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../../core/vectors/app_vector.dart';
+import 'start_page.dart';
+import '../view_model/bloc/theme_cubit.dart';
 
 class ChooseMode extends StatelessWidget {
   const ChooseMode({super.key});

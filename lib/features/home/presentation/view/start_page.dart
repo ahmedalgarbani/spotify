@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spotify/core/helpers/isdark.dart';
-import 'package:spotify/core/theme/app_color.dart';
-import 'package:spotify/core/vectors/app_vector.dart';
-import 'package:spotify/core/widgets/appbar.dart';
-import 'package:spotify/features/home/presentation/view/widgets/playlist.dart';
-import 'package:spotify/features/home/presentation/view/widgets/song_card.dart';
+import '../../../../core/helpers/isdark.dart';
+import '../../../../core/theme/app_color.dart';
+import '../../../../core/vectors/app_vector.dart';
+import '../../../../core/widgets/appbar.dart';
+import 'widgets/playlist.dart';
+import 'widgets/song_card.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});

@@ -2,13 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:spotify/core/router/app_router.dart';
-import 'package:spotify/core/theme/app_theme.dart';
+import 'core/router/app_router.dart';
+import 'core/theme/app_theme.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotify/features/authentiaction/data/services/service_locator.dart';
-import 'package:spotify/features/start_page/presentation/view_model/bloc/theme_cubit.dart';
-import 'package:spotify/firebase_options.dart';
+import 'features/authentiaction/data/services/service_locator.dart';
+import 'features/start_page/presentation/view_model/bloc/theme_cubit.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:spotify/features/authentiaction/data/model/create_user_request.dart';
-import 'package:spotify/features/authentiaction/data/model/signin_user_request.dart';
+import '../model/create_user_request.dart';
+import '../model/signin_user_request.dart';
 
 abstract class FirebaseAuthServices {
   Future<Either> signin(SigninUserRequest signInUserRequest);
@@ -18,7 +18,8 @@ class FirebaseAuthServicesImpl extends FirebaseAuthServices {
       var data = await _auth.createUserWithEmailAndPassword(
           email: createUserRequest.email, password: createUserRequest.password);
 
-      FirebaseFirestore.instance.collection('users').add(
+      FirebaseFirestore.instance.collection('users')
+          .doc(data.user!.uid).set(
         {
           'name':createUserRequest.name,
           'email':data.user!.email,

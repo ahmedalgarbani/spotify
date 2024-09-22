@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotify/core/helpers/isdark.dart';
-import 'package:spotify/core/theme/app_color.dart';
-import 'package:spotify/features/home/presentation/bloc/playlist_cubit/playlist_cubit.dart';
-import 'package:spotify/features/home/presentation/view_model/entities/song/song.dart';
+import 'package:go_router/go_router.dart';
+import 'package:spotify/core/router/app_router.dart';
+import 'package:spotify/core/widgets/favorite_button.dart';
+import '../../../../../core/helpers/isdark.dart';
+import '../../../../../core/theme/app_color.dart';
+import '../../bloc/playlist_cubit/playlist_cubit.dart';
+import '../../view_model/entities/song/song.dart';
 
 class Playlist extends StatelessWidget {
   const Playlist({super.key});
@@ -26,7 +29,7 @@ class Playlist extends StatelessWidget {
           child: const CircularProgressIndicator());
     }
     if (state is PlaylistLoaded) {
-      return  Padding(
+      return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
         child: Column(
           children: [
@@ -45,7 +48,9 @@ class Playlist extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             _songs(state.Playlist),
           ],
         ),
@@ -58,38 +63,71 @@ class Playlist extends StatelessWidget {
 
   Widget _songs(List<SongEntity> playlist) {
     return ListView.separated(
-      shrinkWrap: true,
+        shrinkWrap: true,
         itemBuilder: (context, index) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-             Row(children: [
-               Container(
-                height: 45,
-                width: 45,
-                child: Icon(Icons.play_arrow_rounded,color: context.isDarkMode?Color(0xff959595) : Color(0xff555555),),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: context.isDarkMode ? AppColors.darkGrey:const Color(0xffE6E6E6)
-                ),
-              ),
-             const SizedBox(width: 15,),
-             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          return GestureDetector(
+            onTap: () {
+              GoRouter.of(context).push(AppRoute.KSongPlayer);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text(playlist[index].title,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
-              SizedBox(height: 5,),
-              Text(playlist[index].artist,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14),),
-             ],),
-
-             ],),
-             Row(children: [
-              Text(playlist[index].duration.toString().replaceAll('.', ':'),style: TextStyle(fontWeight: FontWeight.bold))
-             ,const SizedBox(width: 20,),
-             IconButton(onPressed: (){}, icon: Icon(Icons.favorite_rounded,color: AppColors.grey))
-             ],)
-
-            ],
+                Row(
+                  children: [
+                    Container(
+                      height: 45,
+                      width: 45,
+                      child: Icon(
+                        Icons.play_arrow_rounded,
+                        color: context.isDarkMode
+                            ? Color(0xff959595)
+                            : Color(0xff555555),
+                      ),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: context.isDarkMode
+                              ? AppColors.darkGrey
+                              : const Color(0xffE6E6E6)),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          playlist[index].title,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          playlist[index].artist,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                        playlist[index]
+                            .duration
+                            .toString()
+                            .replaceAll('.', ':'),
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    FavoriteButton(songEntity: playlist[index],)
+                  ],
+                )
+              ],
+            ),
           );
         },
         separatorBuilder: (context, index) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:spotify/core/theme/app_theme.dart';
+import '../../../../../core/theme/app_theme.dart';
 
 class ThemeCubit extends HydratedCubit<ThemeMode> {
   ThemeCubit() : super(ThemeMode.system);
