@@ -12,14 +12,14 @@ abstract class AuthRepository {
 }
 
 class AuthRepoImpl extends AuthRepository {
+  late FirebaseAuthServicesImpl firebaseAuthService;
   @override
   Future<Either> register(CreateUserRequest createUserRequest) async {
-   return await sl<FirebaseAuthServices>().register(createUserRequest);
+    return await sl<FirebaseAuthServices>().register(createUserRequest);
   }
 
   @override
-  Future<Either> signin(SigninUserRequest signInUserRequest)async {
-      return await sl<FirebaseAuthServices>().signin(signInUserRequest);
-
+  Future<Either> signin(SigninUserRequest signInUserRequest) async {
+    return await sl<FirebaseAuthServices>().signin(signInUserRequest);
   }
 }

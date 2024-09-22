@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:spotify/features/authentiaction/data/model/create_user_request.dart';
 import 'package:spotify/features/authentiaction/data/model/signin_user_request.dart';
 

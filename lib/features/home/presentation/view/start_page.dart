@@ -4,6 +4,8 @@ import 'package:spotify/core/helpers/isdark.dart';
 import 'package:spotify/core/theme/app_color.dart';
 import 'package:spotify/core/vectors/app_vector.dart';
 import 'package:spotify/core/widgets/appbar.dart';
+import 'package:spotify/features/home/presentation/view/widgets/playlist.dart';
+import 'package:spotify/features/home/presentation/view/widgets/song_card.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -37,7 +39,18 @@ class _HomePageState extends State<HomePage>
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [_homeTopCard(), _tabs()],
+          children: [_homeTopCard(), _tabs(),SizedBox(
+            height: 260,
+            child: TabBarView(controller: _tabController,children: [
+             const SongCard(),
+              Container(),
+              Container(),
+              Container(),
+            ],),
+          ),
+          SizedBox(height: 40,),
+          Playlist(),
+          ],
         ),
       ),
     );
